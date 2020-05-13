@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker run -itd zabbix-server
+docker run --network zabbix --ip 172.20.1.11 -itd zabbix-server
