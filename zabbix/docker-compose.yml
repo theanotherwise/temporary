@@ -2,10 +2,23 @@ version: '3'
 
 services:
   frontend:
-    build: ./ui
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
     ports:
       - "8080:80"
-  server:
-    build: ./server
-    ports:
-      - 10050:10050
+    networks:
+      zabbix:
+        ipv4_address: 172.20.1.11
+  database:
+    build: 
+      context: ./database
+      dockerfile: Dockerfile
+    networks:
+      zabbix:
+        ipv4_address: 172.20.1.21
+networks:
+  zabbix:
+    ipam:
+      config:
+        - subnet: 172.20.1.0/24
