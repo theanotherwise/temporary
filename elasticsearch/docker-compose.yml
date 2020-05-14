@@ -1,0 +1,190 @@
+version: '2.2'
+
+services:
+  es01:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.7.0
+    container_name: es01
+    environment:
+      - node.name=es01
+      - node.master=true
+      - node.voting_only=false
+      - node.data=false
+      - node.ingest=false
+      - cluster.name=es-docker-cluster
+      - discovery.seed_hosts=es02,es03,es04,es05,es06,es07,es08,es09
+      - cluster.initial_master_nodes=es01,es02,es03
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms2096m -Xmx2096m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    ports:
+      - 9200:9200
+    networks:
+      - elastic
+  es02:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.7.0
+    container_name: es02
+    environment:
+      - node.name=es02
+      - node.master=true
+      - node.voting_only=false
+      - node.data=false
+      - node.ingest=false
+      - cluster.name=es-docker-cluster
+      - discovery.seed_hosts=es01,es03,es04,es05,es06,es07,es08,es09
+      - cluster.initial_master_nodes=es01,es02,es03
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms2096m -Xmx2096m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    networks:
+      - elastic
+  es03:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.7.0
+    container_name: es03
+    environment:
+      - node.name=es03
+      - node.master=true
+      - node.voting_only=false
+      - node.data=false
+      - node.ingest=false
+      - cluster.name=es-docker-cluster
+      - discovery.seed_hosts=es01,es02,es04,es05,es06,es07,es08,es09
+      - cluster.initial_master_nodes=es01,es02,es03
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms2096m -Xmx2096m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    networks:
+      - elastic
+  es04:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.7.0
+    container_name: es04
+    environment:
+      - node.name=es04
+      - node.master=false
+      - node.voting_only=false
+      - node.data=true
+      - node.ingest=false
+      - cluster.name=es-docker-cluster
+      - discovery.seed_hosts=es01,es02,es03,es05,es06,es07,es08,es09
+      - cluster.initial_master_nodes=es01,es02,es03
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms4096m -Xmx4096m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    networks:
+      - elastic
+  es05:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.7.0
+    container_name: es05
+    environment:
+      - node.name=es05
+      - node.master=false
+      - node.voting_only=false
+      - node.data=true
+      - node.ingest=false
+      - cluster.name=es-docker-cluster
+      - discovery.seed_hosts=es01,es02,es03,es04,es06,es07,es08,es09
+      - cluster.initial_master_nodes=es01,es02,es03
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms4096m -Xmx4096m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    networks:
+      - elastic
+  es06:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.7.0
+    container_name: es06
+    environment:
+      - node.name=es06
+      - node.master=false
+      - node.voting_only=false
+      - node.data=true
+      - node.ingest=false
+      - cluster.name=es-docker-cluster
+      - discovery.seed_hosts=es01,es02,es03,es04,es05,es07,es08,es09
+      - cluster.initial_master_nodes=es01,es02,es03
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms4096m -Xmx4096m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    networks:
+      - elastic
+  es07:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.7.0
+    container_name: es07
+    environment:
+      - node.name=es07
+      - node.master=false
+      - node.voting_only=false
+      - node.data=false
+      - node.ingest=true
+      - cluster.name=es-docker-cluster
+      - discovery.seed_hosts=es01,es02,es03,es04,es05,es06,es08,es09
+      - cluster.initial_master_nodes=es01,es02,es03
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms2096m -Xmx2096m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    networks:
+      - elastic
+  es08:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.7.0
+    container_name: es08
+    environment:
+      - node.name=es08
+      - node.master=false
+      - node.voting_only=false
+      - node.data=false
+      - node.ingest=true
+      - cluster.name=es-docker-cluster
+      - discovery.seed_hosts=es01,es02,es03,es04,es05,es06,es07,es09
+      - cluster.initial_master_nodes=es01,es02,es03
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms2096m -Xmx2096m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    networks:
+      - elastic
+  es09:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.7.0
+    container_name: es09
+    environment:
+      - node.name=es09
+      - node.master=false
+      - node.voting_only=false
+      - node.data=false
+      - node.ingest=true
+      - cluster.name=es-docker-cluster
+      - discovery.seed_hosts=es01,es02,es03,es04,es05,es06,es07,es08
+      - cluster.initial_master_nodes=es01,es02,es03
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms2096m -Xmx2096m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    networks:
+      - elastic
+networks:                                                                                                                                                                                                                                                                      
+  elastic:
+    ipam:
+      config:
+        - subnet: 172.20.10.0/24
