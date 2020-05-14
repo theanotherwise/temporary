@@ -6,45 +6,45 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
       args:
-        - DB_SRV_TYPE=POSTGRESQL
-        - DB_SRV_ADDR=172.20.1.21
-        - DB_SRV_PORT=5432
-        - DB_SRV_NAME=zabbix-server
-        - DB_SRV_SCHEMA=zabbix-server
-        - DB_SRV_USER=zabbix-server
-        - DB_SRV_PASS=zabbix-server
-        - ZBX_SRV_ADDR=172.20.1.31
-        - ZBX_SRV_PORT=10051
-        - ZBX_SRV_NAME=zabbix-server
+        - DB_SRV_TYPE=$DB_SRV_TYPE
+        - DB_SRV_ADDR=$DB_SRV_ADDR
+        - DB_SRV_PORT=$DB_SRV_PORT
+        - DB_SRV_NAME=$DB_SRV_NAME
+        - DB_SRV_SCHEMA=$DB_SRV_SCHEMA
+        - DB_SRV_USER=$DB_SRV_USER
+        - DB_SRV_PASS=$DB_SRV_PASS
+        - ZBX_SRV_ADDR=$ZBX_SRV_ADDR
+        - ZBX_SRV_PORT=$ZBX_SRV_PORT
+        - ZBX_SRV_NAME=$ZBX_SRV_NAME
     ports:
       - "8080:80"
     networks:
       zabbix:
-        ipv4_address: 172.20.1.11
+        ipv4_address: $FRONTEND_ADDR
   database:
     build: 
       context: ./database
       dockerfile: Dockerfile
     networks:
       zabbix:
-        ipv4_address: 172.20.1.21
+        ipv4_address: $DATABASE_ADDR
   server:
     build:
       context: ./server
       dockerfile: Dockerfile
       args:
-        - DB_SRV_TYPE=POSTGRESQL
-        - DB_SRV_ADDR=172.20.1.21
-        - DB_SRV_PORT=5432
-        - DB_SRV_NAME=zabbix-server
-        - DB_SRV_SCHEMA=zabbix-server
-        - DB_SRV_USER=zabbix-server
-        - DB_SRV_PASS=zabbix-server
+        - DB_SRV_TYPE=$DB_SRV_TYPE
+        - DB_SRV_ADDR=$DB_SRV_ADDR
+        - DB_SRV_PORT=$DB_SRV_PORT
+        - DB_SRV_NAME=$DB_SRV_NAME
+        - DB_SRV_SCHEMA=$DB_SRV_SCHEMA
+        - DB_SRV_USER=$DB_SRV_USER
+        - DB_SRV_PASS=$DB_SRV_PASS
     networks:
       zabbix:
-        ipv4_address: 172.20.1.31
+        ipv4_address: $SERVER_ADDR
 networks:
   zabbix:
     ipam:
       config:
-        - subnet: 172.20.1.0/24
+        - subnet: $NETWORK_SUBNET
