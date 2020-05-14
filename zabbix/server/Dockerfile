@@ -15,7 +15,7 @@ RUN useradd -m -d /opt/zabbix/server -s /bin/bash -g zabbix zabbix-server
 RUN useradd -m -d /opt/zabbix/agent -s /bin/bash -g zabbix zabbix-agent
 
 RUN apt-get update
-RUN apt-get install -y gcc make autoconf libcurl4 libssl-dev libldap2-dev curl libcurl4-openssl-dev postgresql-server-dev-all libxml2-dev unixodbc-dev libsnmp-dev libssh2-1-dev libopenipmi-dev libevent-dev
+RUN apt-get install -y gcc make autoconf libcurl4 libssl-dev libldap2-dev curl libcurl4-openssl-dev postgresql-server-dev-all libxml2-dev unixodbc-dev libsnmp-dev libssh2-1-dev libopenipmi-dev libevent-dev telnet postgresql-client-10
 
 RUN cd zabbix-5.0.0 && ./configure --prefix=/opt/zabbix/server --enable-server \
 --with-postgresql \
@@ -69,4 +69,4 @@ RUN find /opt/zabbix/agent -exec chown -R zabbix-agent {} \;
 # RUN apt-get install -y iproute2 iputils-ping curl telnet net-tools
 # CMD ip a
 
-CMD /opt/zabbix/server/sbin/zabbix_server -c /opt/zabbix/server/etc/zabbix_server.conf
+CMD ["/opt/zabbix/server/sbin/zabbix_server", "-f", "-c", "/opt/zabbix/server/etc/zabbix_server.conf"]

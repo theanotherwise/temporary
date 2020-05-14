@@ -24,9 +24,9 @@ $DB['CIPHER_LIST']		= '';
 // For upgraded installations, please read database upgrade notes before enabling this option.
 $DB['DOUBLE_IEEE754']	= true;
 
-$ZBX_SERVER				= 'localhost';
+$ZBX_SERVER				= '172.20.1.31';
 $ZBX_SERVER_PORT		= '10051';
-$ZBX_SERVER_NAME		= '';
+$ZBX_SERVER_NAME		= 'zabbix-server';
 
 $IMAGE_FORMAT_DEFAULT	= IMAGE_FORMAT_PNG;
 
