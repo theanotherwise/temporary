@@ -14,7 +14,7 @@ services:
       - discovery.seed_hosts=es02,es03,es04,es05,es06,es07,es08,es09
       - cluster.initial_master_nodes=es01,es02,es03
       - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms2096m -Xmx2096m"
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
     ulimits:
       memlock:
         soft: -1
@@ -22,7 +22,7 @@ services:
     ports:
       - 9200:9200
     networks:
-      - elastic
+      - elasticsearch
   es02:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.7.0
     container_name: es02
@@ -36,13 +36,13 @@ services:
       - discovery.seed_hosts=es01,es03,es04,es05,es06,es07,es08,es09
       - cluster.initial_master_nodes=es01,es02,es03
       - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms2096m -Xmx2096m"
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
     ulimits:
       memlock:
         soft: -1
         hard: -1
     networks:
-      - elastic
+      - elasticsearch
   es03:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.7.0
     container_name: es03
@@ -56,13 +56,13 @@ services:
       - discovery.seed_hosts=es01,es02,es04,es05,es06,es07,es08,es09
       - cluster.initial_master_nodes=es01,es02,es03
       - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms2096m -Xmx2096m"
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
     ulimits:
       memlock:
         soft: -1
         hard: -1
     networks:
-      - elastic
+      - elasticsearch
   es04:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.7.0
     container_name: es04
@@ -76,13 +76,13 @@ services:
       - discovery.seed_hosts=es01,es02,es03,es05,es06,es07,es08,es09
       - cluster.initial_master_nodes=es01,es02,es03
       - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms4096m -Xmx4096m"
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
     ulimits:
       memlock:
         soft: -1
         hard: -1
     networks:
-      - elastic
+      - elasticsearch
   es05:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.7.0
     container_name: es05
@@ -96,13 +96,13 @@ services:
       - discovery.seed_hosts=es01,es02,es03,es04,es06,es07,es08,es09
       - cluster.initial_master_nodes=es01,es02,es03
       - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms4096m -Xmx4096m"
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
     ulimits:
       memlock:
         soft: -1
         hard: -1
     networks:
-      - elastic
+      - elasticsearch
   es06:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.7.0
     container_name: es06
@@ -116,13 +116,13 @@ services:
       - discovery.seed_hosts=es01,es02,es03,es04,es05,es07,es08,es09
       - cluster.initial_master_nodes=es01,es02,es03
       - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms4096m -Xmx4096m"
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
     ulimits:
       memlock:
         soft: -1
         hard: -1
     networks:
-      - elastic
+      - elasticsearch
   es07:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.7.0
     container_name: es07
@@ -136,13 +136,13 @@ services:
       - discovery.seed_hosts=es01,es02,es03,es04,es05,es06,es08,es09
       - cluster.initial_master_nodes=es01,es02,es03
       - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms2096m -Xmx2096m"
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
     ulimits:
       memlock:
         soft: -1
         hard: -1
     networks:
-      - elastic
+      - elasticsearch
   es08:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.7.0
     container_name: es08
@@ -156,13 +156,13 @@ services:
       - discovery.seed_hosts=es01,es02,es03,es04,es05,es06,es07,es09
       - cluster.initial_master_nodes=es01,es02,es03
       - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms2096m -Xmx2096m"
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
     ulimits:
       memlock:
         soft: -1
         hard: -1
     networks:
-      - elastic
+      - elasticsearch
   es09:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.7.0
     container_name: es09
@@ -176,15 +176,15 @@ services:
       - discovery.seed_hosts=es01,es02,es03,es04,es05,es06,es07,es08
       - cluster.initial_master_nodes=es01,es02,es03
       - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms2096m -Xmx2096m"
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
     ulimits:
       memlock:
         soft: -1
         hard: -1
     networks:
-      - elastic
-networks:                                                                                                                                                                                                                                                                      
-  elastic:
+      - elasticsearch
+networks:
+  elasticsearch:
     ipam:
       config:
-        - subnet: 172.20.10.0/24
+        - subnet: 172.20.15.0/24

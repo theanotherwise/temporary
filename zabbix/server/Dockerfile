@@ -1,12 +1,6 @@
 FROM ubuntu:18.04
 
 ARG DB_SRV_ADDR
-ARG DB_SRV_NAME
-ARG DB_SRV_PASS
-ARG DB_SRV_PORT
-ARG DB_SRV_SCHEMA
-ARG DB_SRV_TYPE
-ARG DB_SRV_USER
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -60,13 +54,7 @@ RUN mv /opt/zabbix/server/etc/zabbix_server.conf /opt/zabbix/server/etc/zabbix_s
 
 COPY ./files/zabbix_server.conf /opt/zabbix/server/etc/zabbix_server.conf
 
-RUN sed -i "s/DB_SRV_TYPE/$DB_SRV_TYPE/g" /opt/zabbix/server/etc/zabbix_server.conf
 RUN sed -i "s/DB_SRV_ADDR/$DB_SRV_ADDR/g" /opt/zabbix/server/etc/zabbix_server.conf
-RUN sed -i "s/DB_SRV_PORT/$DB_SRV_PORT/g" /opt/zabbix/server/etc/zabbix_server.conf
-RUN sed -i "s/DB_SRV_NAME/$DB_SRV_NAME/g" /opt/zabbix/server/etc/zabbix_server.conf
-RUN sed -i "s/DB_SRV_SCHEMA/$DB_SRV_SCHEMA/g" /opt/zabbix/server/etc/zabbix_server.conf
-RUN sed -i "s/DB_SRV_USER/$DB_SRV_USER/g" /opt/zabbix/server/etc/zabbix_server.conf
-RUN sed -i "s/DB_SRV_PASS/$DB_SRV_PASS/g" /opt/zabbix/server/etc/zabbix_server.conf
 
 RUN mkdir -p /opt/zabbix/server/log && mkdir -p /opt/zabbix/server/tmp
 

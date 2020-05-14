@@ -1,53 +1,36 @@
 version: '3'
 
 services:
-  frontend:
-    container_name: frontend
+  ui:
+    container_name: ui
     build:
       context: ./frontend
       dockerfile: Dockerfile
       args:
-        DB_SRV_TYPE: $DB_SRV_TYPE
-        DB_SRV_ADDR: database
-        DB_SRV_PORT: $DB_SRV_PORT
-        DB_SRV_NAME: $DB_SRV_NAME
-        DB_SRV_SCHEMA: $DB_SRV_SCHEMA
-        DB_SRV_USER: $DB_SRV_USER
-        DB_SRV_PASS: $DB_SRV_PASS
-        ZBX_SRV_ADDR: server
-        ZBX_SRV_PORT: $ZBX_SRV_PORT
-        ZBX_SRV_NAME: $ZBX_SRV_NAME
+        DB_SRV_ADDR: db
+        ZBX_SRV_ADDR: srv
     ports:
       - "8080:80"
     networks:
       - zabbix
-  database:
-    container_name: database
+  db:
+    container_name: db
     build: 
       context: ./database
       dockerfile: Dockerfile
-      args:
-        DB_SRV_NAME: $DB_SRV_NAME
-        DB_SRV_USER: $DB_SRV_USER
     networks:
       - zabbix
-  server:
-    container_name: server
+  srv:
+    container_name: srv
     build:
       context: ./server
       dockerfile: Dockerfile
       args:
-        DB_SRV_TYPE: $DB_SRV_TYPE
-        DB_SRV_ADDR: database
-        DB_SRV_PORT: $DB_SRV_PORT
-        DB_SRV_NAME: $DB_SRV_NAME
-        DB_SRV_SCHEMA: $DB_SRV_SCHEMA
-        DB_SRV_USER: $DB_SRV_USER
-        DB_SRV_PASS: $DB_SRV_PASS
+        DB_SRV_ADDR: db
     networks:
       - zabbix
 networks:
   zabbix:
     ipam:
       config:
-        - subnet: 172.20.1.0/24
+        - subnet: 172.20.10.0/24
