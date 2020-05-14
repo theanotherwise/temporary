@@ -21,6 +21,28 @@ services:
     networks:
       zabbix:
         ipv4_address: 172.20.1.11
+  database:
+    build: 
+      context: ./database
+      dockerfile: Dockerfile
+    networks:
+      zabbix:
+        ipv4_address: 172.20.1.21
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+      args:
+        - DB_SRV_TYPE=POSTGRESQL
+        - DB_SRV_ADDR=172.20.1.21
+        - DB_SRV_PORT=5432
+        - DB_SRV_NAME=zabbix-server
+        - DB_SRV_SCHEMA=zabbix-server
+        - DB_SRV_USER=zabbix-server
+        - DB_SRV_PASS=zabbix-server
+    networks:
+      zabbix:
+        ipv4_address: 172.20.1.31
 networks:
   zabbix:
     ipam:
