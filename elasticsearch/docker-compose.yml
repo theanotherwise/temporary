@@ -1,0 +1,42 @@
+version: '3'
+
+services:
+  master_a:
+    build:
+      context: ./master
+      dockerfile: Dockerfile
+      args:
+        MASTER_SIZE: $MASTER_SIZE
+        MASTER_ADDR_A: $MASTER_ADDR_A
+        IS_MASTER: "false"
+        IS_INGEST: "false"
+        IS_DATA: "false"
+        IS_VOTE: "false"
+        IS_ML: "false"
+        IF_XPACK: "false"
+        IF_REMOTE: "false"
+    networks:
+      elastic:
+        ipv4_address: $MASTER_ADDR_A
+  master_b:
+    build:
+      context: ./master
+      dockerfile: Dockerfile
+      args:
+        MASTER_SIZE: $MASTER_SIZE
+        MASTER_ADDR_A: $MASTER_ADDR_B
+        IS_MASTER: "false"
+        IS_INGEST: "false"
+        IS_DATA: "false"
+        IS_VOTE: "false"
+        IS_ML: "false"
+        IF_XPACK: "false"
+        IF_REMOTE: "false"
+    networks:
+      elastic:
+        ipv4_address: $MASTER_ADDR_B
+networks:
+  elastic:
+    ipam:
+      config:
+        - subnet: $NETWORK_SUBNET
