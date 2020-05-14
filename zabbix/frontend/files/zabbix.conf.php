@@ -1,15 +1,15 @@
 <?php
 // Zabbix GUI configuration file.
 
-$DB['TYPE']				= 'POSTGRESQL';
-$DB['SERVER']			= '172.20.1.21';
-$DB['PORT']				= '5432';
-$DB['DATABASE']			= 'zabbix-server';
-$DB['USER']				= 'zabbix-server';
-$DB['PASSWORD']			= 'zabbix-server';
+$DB['TYPE']				= 'DB_SRV_TYPE';
+$DB['SERVER']			= 'DB_SRV_ADDR';
+$DB['PORT']				= 'DB_SRV_PORT';
+$DB['DATABASE']			= 'DB_SRV_NAME';
+$DB['USER']				= 'DB_SRV_USER';
+$DB['PASSWORD']			= 'DB_SRV_PASS';
 
 // Schema name. Used for PostgreSQL.
-$DB['SCHEMA']			= 'zabbix-server';
+$DB['SCHEMA']			= 'DB_SRV_SCHEMA';
 
 // Used for TLS connection.
 $DB['ENCRYPTION']		= false;
@@ -24,9 +24,9 @@ $DB['CIPHER_LIST']		= '';
 // For upgraded installations, please read database upgrade notes before enabling this option.
 $DB['DOUBLE_IEEE754']	= true;
 
-$ZBX_SERVER				= '172.20.1.31';
-$ZBX_SERVER_PORT		= '10051';
-$ZBX_SERVER_NAME		= 'zabbix-server';
+$ZBX_SERVER				= 'ZBX_SRV_ADDR';
+$ZBX_SERVER_PORT		= 'ZBX_SRV_PORT';
+$ZBX_SERVER_NAME		= 'ZBX_SRV_NAME';
 
 $IMAGE_FORMAT_DEFAULT	= IMAGE_FORMAT_PNG;
 

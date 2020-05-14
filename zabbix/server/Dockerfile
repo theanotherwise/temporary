@@ -69,4 +69,11 @@ RUN find /opt/zabbix/agent -exec chown -R zabbix-agent {} \;
 # RUN apt-get install -y iproute2 iputils-ping curl telnet net-tools
 # CMD ip a
 
-CMD ["/opt/zabbix/server/sbin/zabbix_server", "-f", "-c", "/opt/zabbix/server/etc/zabbix_server.conf"]
+RUN sed -iE "s/DB_SRV_ADDR/$DB_SRV_ADDR/g" /opt/zabbix/server/etc/zabbix_server.conf
+RUN sed -iE "s/DB_SRV_PORT/$DB_SRV_PORT/g" /opt/zabbix/server/etc/zabbix_server.conf
+RUN sed -iE "s/DB_SRV_NAME/$DB_SRV_NAME/g" /opt/zabbix/server/etc/zabbix_server.conf
+RUN sed -iE "s/DB_SRV_SCHEMA/$DB_SRV_SCHEMA/g" /opt/zabbix/server/etc/zabbix_server.conf
+RUN sed -iE "s/DB_SRV_USER/$DB_SRV_USER/g" /opt/zabbix/server/etc/zabbix_server.conf
+RUN sed -iE "s/DB_SRV_PASS/$DB_SRV_PASS/g" /opt/zabbix/server/etc/zabbix_server.conf
+
+# CMD ["/opt/zabbix/server/sbin/zabbix_server", "-f", "-c", "/opt/zabbix/server/etc/zabbix_server.conf"]
