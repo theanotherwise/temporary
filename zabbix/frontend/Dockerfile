@@ -27,6 +27,8 @@ RUN sed -i "s/ZBX_SRV_ADDR/$ZBX_SRV_ADDR/g" /var/www/html/conf/zabbix.conf.php
 RUN sed -i "s/ZBX_SRV_PORT/$ZBX_SRV_PORT/g" /var/www/html/conf/zabbix.conf.php                                                                  
 RUN sed -i "s/ZBX_SRV_NAME/$ZBX_SRV_NAME/g" /var/www/html/conf/zabbix.conf.php
 
+RUN echo "$ZBX_SRV_NAME"
+
 RUN rm -f /var/www/html/index.html
 
 COPY ./files/php.ini /etc/php/7.2/apache2/php.ini
@@ -35,4 +37,4 @@ RUN chmod 644 /etc/php/7.2/apache2/php.ini
 # RUN apt-get install -y iproute2 iputils-ping curl telnet net-tools
 # ip a
 
-#CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
+CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]

@@ -5,11 +5,9 @@ ENV DEBIAN_FRONTEND=noninteractive
 WORKDIR /zabbix
 
 COPY ./archives/zabbix-5.0.0.tar.gz .
-
 RUN tar -xf zabbix-5.0.0.tar.gz
 
 RUN groupadd zabbix
-
 RUN useradd -m -d /opt/zabbix -s /bin/bash -g zabbix zabbix
 RUN useradd -m -d /opt/zabbix/server -s /bin/bash -g zabbix zabbix-server
 RUN useradd -m -d /opt/zabbix/agent -s /bin/bash -g zabbix zabbix-agent
@@ -69,4 +67,4 @@ RUN find /opt/zabbix/agent -exec chown -R zabbix-agent {} \;
 # RUN apt-get install -y iproute2 iputils-ping curl telnet net-tools
 # CMD ip a
 
-# CMD ["/opt/zabbix/server/sbin/zabbix_server", "-f", "-c", "/opt/zabbix/server/etc/zabbix_server.conf"]
+CMD ["/opt/zabbix/server/sbin/zabbix_server", "-f", "-c", "/opt/zabbix/server/etc/zabbix_server.conf"]
