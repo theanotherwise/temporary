@@ -3,7 +3,7 @@ FROM ubuntu:18.04
 ARG DB_SRV_NAME
 ARG DB_SRV_USER
 
-ENV DEBIAN_FRONTEND=noninteractive 
+ENV DEBIAN_FRONTEND=noninteractive
 
 WORKDIR /zabbix
 
@@ -39,12 +39,12 @@ RUN /etc/init.d/postgresql start && \
      psql -d "$DB_SRV_NAME" -c "ALTER SCHEMA \"$DB_SRV_NAME\" OWNER TO \"$DB_SRV_NAME\";" && \
      psql -d "$DB_SRV_NAME" -c "GRANT ALL PRIVILEGES ON SCHEMA \"$DB_SRV_NAME\" TO \"$DB_SRV_NAME\";" && \
      PGPASSWORD="$DB_SRV_NAME" psql -h localhost -U "$DB_SRV_NAME" "$DB_SRV_NAME" < /zabbix/zabbix-5.0.0/database/postgresql/schema.sql && \
-     PGPASSWORD="$DB_SRV_NAME" psql -h localhost -U "$DB_SRV_NAME" "$DB_SRV_NAME" < /zabbix/zabbix-5.0.0/database/postgresql/images.sql && \ 
+     PGPASSWORD="$DB_SRV_NAME" psql -h localhost -U "$DB_SRV_NAME" "$DB_SRV_NAME" < /zabbix/zabbix-5.0.0/database/postgresql/images.sql && \
      PGPASSWORD="$DB_SRV_NAME" psql -h localhost -U "$DB_SRV_NAME" "$DB_SRV_NAME" < /zabbix/zabbix-5.0.0/database/postgresql/data.sql
 
 # RUN rm -f zabbix-5.0.0.tar.gz && rm -rf zabbix-5.0.0
 
 # RUN apt-get install -y iproute2 iputils-ping curl telnet net-tools
 # RUN ip a
-    
+
 CMD ["/usr/lib/postgresql/10/bin/postgres", "-D", "/var/lib/postgresql/10/main", "-c", "config_file=/etc/postgresql/10/main/postgresql.conf"]
