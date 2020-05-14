@@ -8,9 +8,9 @@ ENV DEBIAN_FRONTEND=noninteractive
 WORKDIR /zabbix
 
 RUN apt-get update
-RUN apt-get install -y postgresql
+RUN apt-get install -y postgresql wget
 
-COPY ./archives/zabbix-5.0.0.tar.gz .
+RUN wget https://cdn.zabbix.com/zabbix/sources/stable/5.0/zabbix-5.0.0.tar.gz
 RUN tar -xf zabbix-5.0.0.tar.gz
 
 COPY ./files/pg_hba.conf /etc/postgresql/10/main/pg_hba.conf
