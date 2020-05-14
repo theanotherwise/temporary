@@ -25,6 +25,9 @@ services:
     build: 
       context: ./database
       dockerfile: Dockerfile
+      args:
+        DB_SRV_NAME:  $DB_SRV_NAME
+        DB_SRV_USER:  $DB_SRV_USER
     networks:
       zabbix:
         ipv4_address: $DATABASE_ADDR
