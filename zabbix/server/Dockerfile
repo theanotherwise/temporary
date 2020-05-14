@@ -13,9 +13,9 @@ ENV DEBIAN_FRONTEND=noninteractive
 WORKDIR /zabbix
 
 RUN apt-get update
-RUN apt-get install -y gcc make autoconf libcurl4 libssl-dev libldap2-dev curl libcurl4-openssl-dev postgresql-server-dev-all libxml2-dev unixodbc-dev libsnmp-dev libssh2-1-dev libopenipmi-dev libevent-dev telnet postgresql-client-10
+RUN apt-get install -y gcc make autoconf libcurl4 libssl-dev libldap2-dev curl libcurl4-openssl-dev postgresql-server-dev-all libxml2-dev unixodbc-dev libsnmp-dev libssh2-1-dev libopenipmi-dev libevent-dev telnet postgresql-client-10 wget
 
-COPY ./archives/zabbix-5.0.0.tar.gz .
+RUN wget https://cdn.zabbix.com/zabbix/sources/stable/5.0/zabbix-5.0.0.tar.gz
 RUN tar -xf zabbix-5.0.0.tar.gz
 
 RUN groupadd zabbix
