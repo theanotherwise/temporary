@@ -11,7 +11,6 @@ RUN apt-get update
 RUN apt-get install -y postgresql
 
 COPY ./archives/zabbix-5.0.0.tar.gz .
-
 RUN tar -xf zabbix-5.0.0.tar.gz
 
 COPY ./files/pg_hba.conf /etc/postgresql/10/main/pg_hba.conf

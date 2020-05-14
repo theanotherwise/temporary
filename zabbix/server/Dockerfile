@@ -1,8 +1,19 @@
 FROM ubuntu:18.04
 
+ARG DB_SRV_ADDR
+ARG DB_SRV_NAME
+ARG DB_SRV_PASS
+ARG DB_SRV_PORT
+ARG DB_SRV_SCHEMA
+ARG DB_SRV_TYPE
+ARG DB_SRV_USER
+
 ENV DEBIAN_FRONTEND=noninteractive 
 
 WORKDIR /zabbix
+
+RUN apt-get update
+RUN apt-get install -y gcc make autoconf libcurl4 libssl-dev libldap2-dev curl libcurl4-openssl-dev postgresql-server-dev-all libxml2-dev unixodbc-dev libsnmp-dev libssh2-1-dev libopenipmi-dev libevent-dev telnet postgresql-client-10
 
 COPY ./archives/zabbix-5.0.0.tar.gz .
 RUN tar -xf zabbix-5.0.0.tar.gz
@@ -11,9 +22,6 @@ RUN groupadd zabbix
 RUN useradd -m -d /opt/zabbix -s /bin/bash -g zabbix zabbix
 RUN useradd -m -d /opt/zabbix/server -s /bin/bash -g zabbix zabbix-server
 RUN useradd -m -d /opt/zabbix/agent -s /bin/bash -g zabbix zabbix-agent
-
-RUN apt-get update
-RUN apt-get install -y gcc make autoconf libcurl4 libssl-dev libldap2-dev curl libcurl4-openssl-dev postgresql-server-dev-all libxml2-dev unixodbc-dev libsnmp-dev libssh2-1-dev libopenipmi-dev libevent-dev telnet postgresql-client-10
 
 RUN cd zabbix-5.0.0 && ./configure --prefix=/opt/zabbix/server --enable-server \
 --with-postgresql \
@@ -49,7 +57,16 @@ RUN cd zabbix-5.0.0 && ./configure --prefix=/opt/zabbix/agent --enable-agent \
 RUN rm -f zabbix-5.0.0.tar.gz && rm -rf zabbix-5.0.0
 
 RUN mv /opt/zabbix/server/etc/zabbix_server.conf /opt/zabbix/server/etc/zabbix_server.conf_BACKUP
+
 COPY ./files/zabbix_server.conf /opt/zabbix/server/etc/zabbix_server.conf
+
+RUN sed -i "s/DB_SRV_TYPE/$DB_SRV_TYPE/g" /opt/zabbix/server/etc/zabbix_server.conf
+RUN sed -i "s/DB_SRV_ADDR/$DB_SRV_ADDR/g" /opt/zabbix/server/etc/zabbix_server.conf
+RUN sed -i "s/DB_SRV_PORT/$DB_SRV_PORT/g" /opt/zabbix/server/etc/zabbix_server.conf
+RUN sed -i "s/DB_SRV_NAME/$DB_SRV_NAME/g" /opt/zabbix/server/etc/zabbix_server.conf
+RUN sed -i "s/DB_SRV_SCHEMA/$DB_SRV_SCHEMA/g" /opt/zabbix/server/etc/zabbix_server.conf
+RUN sed -i "s/DB_SRV_USER/$DB_SRV_USER/g" /opt/zabbix/server/etc/zabbix_server.conf
+RUN sed -i "s/DB_SRV_PASS/$DB_SRV_PASS/g" /opt/zabbix/server/etc/zabbix_server.conf
 
 RUN mkdir -p /opt/zabbix/server/log && mkdir -p /opt/zabbix/server/tmp
 
