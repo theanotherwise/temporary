@@ -18,6 +18,9 @@ WORKDIR /zabbix
 RUN apt-get update
 RUN apt-get install -y apache2 libapache2-mod-php php php-gd php-xml php-bcmath php-mbstring php-pgsql php-ldap wget
 
+COPY ./files/php.ini /etc/php/7.2/apache2/php.ini
+RUN chmod 644 /etc/php/7.2/apache2/php.ini
+
 RUN wget https://cdn.zabbix.com/zabbix/sources/stable/5.0/zabbix-5.0.0.tar.gz
 RUN tar -xf zabbix-5.0.0.tar.gz
 
