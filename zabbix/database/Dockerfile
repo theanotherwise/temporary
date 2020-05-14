@@ -42,10 +42,8 @@ RUN /etc/init.d/postgresql start && \
      PGPASSWORD="$DB_SRV_NAME" psql -h localhost -U "$DB_SRV_NAME" "$DB_SRV_NAME" < /zabbix/zabbix-5.0.0/database/postgresql/images.sql && \ 
      PGPASSWORD="$DB_SRV_NAME" psql -h localhost -U "$DB_SRV_NAME" "$DB_SRV_NAME" < /zabbix/zabbix-5.0.0/database/postgresql/data.sql
 
-RUN ls -lh
 # RUN rm -f zabbix-5.0.0.tar.gz && rm -rf zabbix-5.0.0
 
-# USER root
 # RUN apt-get install -y iproute2 iputils-ping curl telnet net-tools
 # RUN ip a
     
