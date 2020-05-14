@@ -2,52 +2,52 @@ version: '3'
 
 services:
   frontend:
+    container_name: frontend
     build:
       context: ./frontend
       dockerfile: Dockerfile
       args:
-        DB_SRV_TYPE:  $DB_SRV_TYPE
-        DB_SRV_ADDR:  $DB_SRV_ADDR
-        DB_SRV_PORT:  $DB_SRV_PORT
-        DB_SRV_NAME:  $DB_SRV_NAME
-        DB_SRV_SCHEMA:  $DB_SRV_SCHEMA
-        DB_SRV_USER:  $DB_SRV_USER
-        DB_SRV_PASS:  $DB_SRV_PASS
-        ZBX_SRV_ADDR: $ZBX_SRV_ADDR
+        DB_SRV_TYPE: $DB_SRV_TYPE
+        DB_SRV_ADDR: database
+        DB_SRV_PORT: $DB_SRV_PORT
+        DB_SRV_NAME: $DB_SRV_NAME
+        DB_SRV_SCHEMA: $DB_SRV_SCHEMA
+        DB_SRV_USER: $DB_SRV_USER
+        DB_SRV_PASS: $DB_SRV_PASS
+        ZBX_SRV_ADDR: server
         ZBX_SRV_PORT: $ZBX_SRV_PORT
         ZBX_SRV_NAME: $ZBX_SRV_NAME
     ports:
       - "8080:80"
     networks:
-      zabbix:
-        ipv4_address: $FRONTEND_ADDR
+      - zabbix
   database:
+    container_name: database
     build: 
       context: ./database
       dockerfile: Dockerfile
       args:
-        DB_SRV_NAME:  $DB_SRV_NAME
-        DB_SRV_USER:  $DB_SRV_USER
+        DB_SRV_NAME: $DB_SRV_NAME
+        DB_SRV_USER: $DB_SRV_USER
     networks:
-      zabbix:
-        ipv4_address: $DATABASE_ADDR
+      - zabbix
   server:
+    container_name: server
     build:
       context: ./server
       dockerfile: Dockerfile
       args:
-        DB_SRV_TYPE:  $DB_SRV_TYPE
-        DB_SRV_ADDR:  $DB_SRV_ADDR
-        DB_SRV_PORT:  $DB_SRV_PORT
-        DB_SRV_NAME:  $DB_SRV_NAME
-        DB_SRV_SCHEMA:  $DB_SRV_SCHEMA
-        DB_SRV_USER:  $DB_SRV_USER
-        DB_SRV_PASS:  $DB_SRV_PASS
+        DB_SRV_TYPE: $DB_SRV_TYPE
+        DB_SRV_ADDR: database
+        DB_SRV_PORT: $DB_SRV_PORT
+        DB_SRV_NAME: $DB_SRV_NAME
+        DB_SRV_SCHEMA: $DB_SRV_SCHEMA
+        DB_SRV_USER: $DB_SRV_USER
+        DB_SRV_PASS: $DB_SRV_PASS
     networks:
-      zabbix:
-        ipv4_address: $SERVER_ADDR
+      - zabbix
 networks:
   zabbix:
     ipam:
       config:
-        - subnet: $NETWORK_SUBNET
+        - subnet: 172.20.1.0/24
