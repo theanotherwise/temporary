@@ -20,8 +20,6 @@ services:
       memlock:
         soft: -1
         hard: -1
-    ports:
-      - 9200:9200
     networks:
       - elasticsearch
   es02:
@@ -264,12 +262,6 @@ services:
       ELASTICSEARCH_HOSTS: http://es10:9200
       ELASTICSEARCH_HOSTS: http://es11:9200
       ELASTICSEARCH_HOSTS: http://es12:9200
-    networks:
-      - elasticsearch
-  apache2:
-    container_name: httpd
-    build:
-      context: httpd
     networks:
       - elasticsearch
 networks:
