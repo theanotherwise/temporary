@@ -1,0 +1,20 @@
+filebeat.config.modules:
+  path: ${path.config}/modules.d/*.yml
+  reload.enabled: false
+
+processors:
+  - add_docker_metadata: ~
+
+output.elasticsearch:
+  hosts: '${ELASTICSEARCH_HOSTS:elasticsearch:9200}'
+  indices:
+    - index: "httpd-access.log-%{+yyyy-MM-dd}"
+      when.equals:
+        event.module: "apache"
+
+setup.template:
+  name: 'workstation'
+  pattern: 'workstation-*'
+  enabled: false
+
+setup.ilm.enabled: false

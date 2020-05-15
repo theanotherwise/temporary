@@ -273,7 +273,8 @@ services:
       ELASTICSEARCH_HOSTS: http://es12:9200
     volumes:
       - httpd01-volume:/var/log/apache2:ro
-      - ./files/apache.yml:/usr/share/filebeat/modules.d/apache.yml:ro
+      - ./files/filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
+      - ./files/filebeat/modules.d/apache.yml:/usr/share/filebeat/modules.d/apache.yml:ro
     networks:
       - elasticsearch
   filebeat02:
@@ -285,7 +286,8 @@ services:
       ELASTICSEARCH_HOSTS: http://es12:9200
     volumes:
       - httpd02-volume:/var/log/apache2:ro
-      - ./files/apache.yml:/usr/share/filebeat/modules.d/apache.yml:ro
+      - ./files/filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
+      - ./files/filebeat/modules.d/apache.yml:/usr/share/filebeat/modules.d/apache.yml:ro
     networks:
       - elasticsearch
   httpd01:
@@ -293,7 +295,7 @@ services:
     container_name: httpd01
     volumes:
       - httpd01-volume:/var/log/apache2
-      - ./files/httpd.conf:/usr/local/apache2/conf/httpd.conf:ro
+      - ./files/httpd/httpd.conf:/usr/local/apache2/conf/httpd.conf:ro
     networks:
       - elasticsearch
   httpd02:
@@ -301,7 +303,7 @@ services:
     container_name: httpd02
     volumes:
       - httpd02-volume:/var/log/apache2
-      - ./files/httpd.conf:/usr/local/apache2/conf/httpd.conf:ro
+      - ./files/httpd/httpd.conf:/usr/local/apache2/conf/httpd.conf:ro
     networks:
       - elasticsearch
 networks:
