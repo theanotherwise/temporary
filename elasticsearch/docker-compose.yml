@@ -264,8 +264,38 @@ services:
       ELASTICSEARCH_HOSTS: http://es12:9200
     networks:
       - elasticsearch
+  filebeat:
+    image: docker.elastic.co/beats/filebeat:7.7.0
+    container_name: filebeat
+    environment:
+      SETUP_KIBANA_HOST: kibana5601
+      ELASTICSEARCH_HOSTS: http://es10:9200
+      ELASTICSEARCH_HOSTS: http://es11:9200
+      ELASTICSEARCH_HOSTS: http://es12:9200
+    volumes:
+      - apache2a-volume:/var/log/apache2:ro
+      - ./files/apache.yml:/usr/share/filebeat/modules.d/apache.yml:ro
+    networks:
+      - elasticsearch
+  apache2a:
+    image: httpd:2.4.43
+    container_name: apache2a
+    volumes:
+      - apache2a-volume:/var/log/apache2
+    networks:
+      - elasticsearch
+  apache2b:
+    image: httpd:2.4.43
+    container_name: apache2b
+    volumes:
+      - apache2b-volume:/var/log/apache2
+    networks:
+      - elasticsearch
 networks:
   elasticsearch:
     ipam:
       config:
         - subnet: 172.20.15.0/24
+volumes:
+  apache2a-volume:
+  apache2b-volume:
