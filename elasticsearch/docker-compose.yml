@@ -264,31 +264,44 @@ services:
       ELASTICSEARCH_HOSTS: http://es12:9200
     networks:
       - elasticsearch
-  filebeat:
+  filebeat01:
     image: docker.elastic.co/beats/filebeat:7.7.0
-    container_name: filebeat
+    container_name: filebeat01
     environment:
-      SETUP_KIBANA_HOST: kibana5601
       ELASTICSEARCH_HOSTS: http://es10:9200
       ELASTICSEARCH_HOSTS: http://es11:9200
       ELASTICSEARCH_HOSTS: http://es12:9200
     volumes:
-      - apache2a-volume:/var/log/apache2:ro
+      - httpd01-volume:/var/log/apache2:ro
       - ./files/apache.yml:/usr/share/filebeat/modules.d/apache.yml:ro
     networks:
       - elasticsearch
-  apache2a:
-    image: httpd:2.4.43
-    container_name: apache2a
+  filebeat02:
+    image: docker.elastic.co/beats/filebeat:7.7.0
+    container_name: filebeat02
+    environment:
+      ELASTICSEARCH_HOSTS: http://es10:9200
+      ELASTICSEARCH_HOSTS: http://es11:9200
+      ELASTICSEARCH_HOSTS: http://es12:9200
     volumes:
-      - apache2a-volume:/var/log/apache2
+      - httpd02-volume:/var/log/apache2:ro
+      - ./files/apache.yml:/usr/share/filebeat/modules.d/apache.yml:ro
     networks:
       - elasticsearch
-  apache2b:
+  httpd01:
     image: httpd:2.4.43
-    container_name: apache2b
+    container_name: httpd01
     volumes:
-      - apache2b-volume:/var/log/apache2
+      - httpd01-volume:/var/log/apache2
+      - ./files/httpd.conf:/usr/local/apache2/conf/httpd.conf:ro
+    networks:
+      - elasticsearch
+  httpd02:
+    image: httpd:2.4.43
+    container_name: httpd02
+    volumes:
+      - httpd02-volume:/var/log/apache2
+      - ./files/httpd.conf:/usr/local/apache2/conf/httpd.conf:ro
     networks:
       - elasticsearch
 networks:
@@ -297,5 +310,5 @@ networks:
       config:
         - subnet: 172.20.15.0/24
 volumes:
-  apache2a-volume:
-  apache2b-volume:
+  httpd01-volume:
+  httpd02-volume:
