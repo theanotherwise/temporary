@@ -8,13 +8,13 @@ processors:
 output.elasticsearch:
   hosts: '${ELASTICSEARCH_HOSTS:elasticsearch:9200}'
   indices:
-    - index: "httpd-access.log-%{+yyyy-MM-dd}"
+    - index: "filebeat-httpd-access.log-%{+yyyy-MM-dd}"
       when.equals:
         event.module: "apache"
 
 setup.template:
-  name: 'workstation'
-  pattern: 'workstation-*'
+  name: 'filebeat-httpd-access.log'
+  pattern: 'filebeat-httpd-access.log-*'
   enabled: false
 
 setup.ilm.enabled: false
