@@ -429,9 +429,41 @@ services:
       - ./files/httpd/httpd.conf:/usr/local/apache2/conf/httpd.conf:ro
     networks:
       - elasticsearch
+  httpd03:
+    image: httpd:2.4.43
+    container_name: httpd03
+    volumes:
+      - httpd03-volume:/var/log/apache2
+      - ./files/httpd/httpd.conf:/usr/local/apache2/conf/httpd.conf:ro
+    networks:
+      - elasticsearch
+  httpd04:
+    image: httpd:2.4.43
+    container_name: httpd04
+    volumes:
+      - httpd04-volume:/var/log/apache2
+      - ./files/httpd/httpd.conf:/usr/local/apache2/conf/httpd.conf:ro
+    networks:
+      - elasticsearch
   fluentd01:
-    image: fluentd
+    build: ./fluentd
     container_name: fluentd01
+    environment:
+      ELASTICSEARCH_HOSTS: es10
+    volumes:
+      - httpd03-volume:/var/log/apache2:ro
+      - ./files/fluentd/fluent.conf:/fluentd/etc/fluent.conf:ro
+
+    networks:
+      - elasticsearch
+  fluentd02:
+    build: ./fluentd
+    container_name: fluentd02
+    environment:                                                                                                                            
+      ELASTICSEARCH_HOSTS: es10
+    volumes:
+      - httpd04-volume:/var/log/apache2:ro
+      - ./files/fluentd/fluent.conf:/fluentd/etc/fluent.conf:ro
     networks:
       - elasticsearch
 networks:
@@ -442,3 +474,5 @@ networks:
 volumes:
   httpd01-volume:
   httpd02-volume:
+  httpd03-volume:
+  httpd04-volume:
