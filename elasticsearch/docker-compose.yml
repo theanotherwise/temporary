@@ -446,24 +446,27 @@ services:
     networks:
       - elasticsearch
   fluentd01:
-    build: ./fluentd
+    build:
+      context: ./fluentd
+      args:
+        ELASTICSEARCH_HOSTS1: es04
+        ELASTICSEARCH_HOSTS2: es05
+        ELASTICSEARCH_HOSTS3: es06
     container_name: fluentd01
-    environment:
-      ELASTICSEARCH_HOSTS: es10
     volumes:
       - httpd03-volume:/var/log/apache2:ro
-      - ./files/fluentd/fluent.conf:/fluentd/etc/fluent.conf:ro
-
     networks:
       - elasticsearch
   fluentd02:
-    build: ./fluentd
+    build: 
+      context: ./fluentd
+      args:
+        ELASTICSEARCH_HOSTS1: es04
+        ELASTICSEARCH_HOSTS2: es05
+        ELASTICSEARCH_HOSTS3: es06
     container_name: fluentd02
-    environment:                                                                                                                            
-      ELASTICSEARCH_HOSTS: es10
     volumes:
       - httpd04-volume:/var/log/apache2:ro
-      - ./files/fluentd/fluent.conf:/fluentd/etc/fluent.conf:ro
     networks:
       - elasticsearch
 networks:
