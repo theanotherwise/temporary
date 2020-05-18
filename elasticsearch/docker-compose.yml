@@ -10,6 +10,10 @@ services:
       - node.voting_only=false
       - node.data=false
       - node.ingest=false
+      - node.ml=false
+      - node.transform=false
+      - xpack.transform.enabled=false
+      - node.remote_cluster_client=false
       - cluster.name=es-docker-cluster
       - discovery.seed_hosts=es02,es03,es04,es05,es06,es07,es08,es09,es10,es11,es12
       - cluster.initial_master_nodes=es01,es02,es03
@@ -31,6 +35,10 @@ services:
       - node.voting_only=false
       - node.data=false
       - node.ingest=false
+      - node.ml=false
+      - node.transform=false
+      - xpack.transform.enabled=false
+      - node.remote_cluster_client=false
       - cluster.name=es-docker-cluster
       - discovery.seed_hosts=es01,es03,es04,es05,es06,es07,es08,es09,es10,es11,es12
       - cluster.initial_master_nodes=es01,es02,es03
@@ -52,6 +60,10 @@ services:
       - node.voting_only=false
       - node.data=false
       - node.ingest=false
+      - node.ml=false
+      - node.transform=false
+      - xpack.transform.enabled=false
+      - node.remote_cluster_client=false
       - cluster.name=es-docker-cluster
       - discovery.seed_hosts=es01,es02,es04,es05,es06,es07,es08,es09,es10,es11,es12
       - cluster.initial_master_nodes=es01,es02,es03
@@ -73,6 +85,10 @@ services:
       - node.voting_only=false
       - node.data=true
       - node.ingest=false
+      - node.ml=false
+      - node.transform=false
+      - xpack.transform.enabled=false
+      - node.remote_cluster_client=false
       - cluster.name=es-docker-cluster
       - discovery.seed_hosts=es01,es02,es03,es05,es06,es07,es08,es09,es10,es11,es12
       - cluster.initial_master_nodes=es01,es02,es03
@@ -94,6 +110,10 @@ services:
       - node.voting_only=false
       - node.data=true
       - node.ingest=false
+      - node.ml=false
+      - node.transform=false
+      - xpack.transform.enabled=false
+      - node.remote_cluster_client=false
       - cluster.name=es-docker-cluster
       - discovery.seed_hosts=es01,es02,es03,es04,es06,es07,es08,es09,es10,es11,es12
       - cluster.initial_master_nodes=es01,es02,es03
@@ -115,6 +135,10 @@ services:
       - node.voting_only=false
       - node.data=true
       - node.ingest=false
+      - node.ml=false
+      - node.transform=false
+      - xpack.transform.enabled=false
+      - node.remote_cluster_client=false
       - cluster.name=es-docker-cluster
       - discovery.seed_hosts=es01,es02,es03,es04,es05,es07,es08,es09,es10,es11,es12
       - cluster.initial_master_nodes=es01,es02,es03
@@ -136,6 +160,10 @@ services:
       - node.voting_only=false
       - node.data=false
       - node.ingest=true
+      - node.ml=false
+      - node.transform=false
+      - xpack.transform.enabled=false
+      - node.remote_cluster_client=false
       - cluster.name=es-docker-cluster
       - discovery.seed_hosts=es01,es02,es03,es04,es05,es06,es08,es09,es10,es11,es12
       - cluster.initial_master_nodes=es01,es02,es03
@@ -157,6 +185,10 @@ services:
       - node.voting_only=false
       - node.data=false
       - node.ingest=true
+      - node.ml=false
+      - node.transform=false
+      - xpack.transform.enabled=false
+      - node.remote_cluster_client=false
       - cluster.name=es-docker-cluster
       - discovery.seed_hosts=es01,es02,es03,es04,es05,es06,es07,es09,es10,es11,es12
       - cluster.initial_master_nodes=es01,es02,es03
@@ -178,6 +210,10 @@ services:
       - node.voting_only=false
       - node.data=false
       - node.ingest=true
+      - node.ml=false
+      - node.transform=false
+      - xpack.transform.enabled=false
+      - node.remote_cluster_client=false
       - cluster.name=es-docker-cluster
       - discovery.seed_hosts=es01,es02,es03,es04,es05,es06,es07,es08,es10,es11,es12
       - cluster.initial_master_nodes=es01,es02,es03
@@ -199,6 +235,10 @@ services:
       - node.voting_only=false
       - node.data=false
       - node.ingest=false
+      - node.ml=false
+      - node.transform=false
+      - xpack.transform.enabled=false
+      - node.remote_cluster_client=false
       - cluster.name=es-docker-cluster
       - discovery.seed_hosts=es01,es02,es03,es04,es05,es06,es07,es08,es09,es11,es12
       - cluster.initial_master_nodes=es01,es02,es03
@@ -220,6 +260,10 @@ services:
       - node.voting_only=false
       - node.data=false
       - node.ingest=false
+      - node.ml=false
+      - node.transform=false
+      - xpack.transform.enabled=false
+      - node.remote_cluster_client=false
       - cluster.name=es-docker-cluster
       - discovery.seed_hosts=es01,es02,es03,es04,es05,es06,es07,es08,es09,es10,es12
       - cluster.initial_master_nodes=es01,es02,es03
@@ -241,8 +285,87 @@ services:
       - node.voting_only=false
       - node.data=false
       - node.ingest=false
+      - node.ml=false
+      - node.transform=false
+      - xpack.transform.enabled=false
+      - node.remote_cluster_client=false
       - cluster.name=es-docker-cluster
-      - discovery.seed_hosts=es01,es02,es03,es04,es05,es06,es07,es08,es09,es10,es11
+      - discovery.seed_hosts=es01,es02,es03,es04,es05,es06,es07,es08,es09,es10,es11,es14,es14,es15
+      - cluster.initial_master_nodes=es01,es02,es03
+      - bootstrap.memory_lock=true
+      - xpack.monitoring.collection.enabled=true
+      - "ES_JAVA_OPTS=-Xms1024m -Xmx1024m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    networks:
+      - elasticsearch
+  es13:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.7.0
+    container_name: es13
+    environment:
+      - node.name=es13
+      - node.master=false
+      - node.voting_only=false
+      - node.data=false
+      - node.ingest=false
+      - node.ml=false
+      - node.transform=true
+      - xpack.transform.enabled=true
+      - node.remote_cluster_client=false
+      - cluster.name=es-docker-cluster
+      - discovery.seed_hosts=es01,es02,es03,es04,es05,es06,es07,es08,es09,es10,es11,es12,es14,es15
+      - cluster.initial_master_nodes=es01,es02,es03
+      - bootstrap.memory_lock=true
+      - xpack.monitoring.collection.enabled=true
+      - "ES_JAVA_OPTS=-Xms1024m -Xmx1024m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    networks:
+      - elasticsearch
+  es14:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.7.0
+    container_name: es14
+    environment:
+      - node.name=es14
+      - node.master=false
+      - node.voting_only=false
+      - node.data=false
+      - node.ingest=false
+      - node.ml=false
+      - node.transform=true
+      - xpack.transform.enabled=true
+      - node.remote_cluster_client=false
+      - cluster.name=es-docker-cluster
+      - discovery.seed_hosts=es01,es02,es03,es04,es05,es06,es07,es08,es09,es10,es11,es12,es13,es15
+      - cluster.initial_master_nodes=es01,es02,es03
+      - bootstrap.memory_lock=true
+      - xpack.monitoring.collection.enabled=true
+      - "ES_JAVA_OPTS=-Xms1024m -Xmx1024m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    networks:
+      - elasticsearch
+  es15:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.7.0
+    container_name: es15
+    environment:
+      - node.name=es15
+      - node.master=false
+      - node.voting_only=false
+      - node.data=false
+      - node.ingest=false
+      - node.ml=false
+      - node.transform=true
+      - xpack.transform.enabled=true
+      - node.remote_cluster_client=false
+      - cluster.name=es-docker-cluster
+      - discovery.seed_hosts=es01,es02,es03,es04,es05,es06,es07,es08,es09,es10,es11,es12,es13,es14
       - cluster.initial_master_nodes=es01,es02,es03
       - bootstrap.memory_lock=true
       - xpack.monitoring.collection.enabled=true
@@ -304,6 +427,11 @@ services:
     volumes:
       - httpd02-volume:/var/log/apache2
       - ./files/httpd/httpd.conf:/usr/local/apache2/conf/httpd.conf:ro
+    networks:
+      - elasticsearch
+  fluentd01:
+    image: fluentd
+    container_name: fluentd01
     networks:
       - elasticsearch
 networks:
