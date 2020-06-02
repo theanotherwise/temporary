@@ -1,44 +1,59 @@
-resource "google_compute_instance" "foo_dev_ide_instance" {
-  name         = "foo-dev-ide${count.index}"
-  machine_type = var.ide_machine_type
-  count        = 2
+resource "google_compute_instance" "web_instance" {
+  name          = "${var.env_name}-${var.name}-${var.web_name}${count.index}"
+  machine_type  = var.web_machine_type
+  count         = var.web_count
   boot_disk {
     initialize_params {
-      image = var.image
+      image     = var.image
     }
   }
   network_interface {
-    subnetwork = var.ide_subnetwork
+    subnetwork  = "${var.web_name}"
   }
-  depends_on    = [google_compute_subnetwork.ide_subnetwork]
+  depends_on    = [google_compute_subnetwork.web_subnetwork]
 }
 
-resource "google_compute_instance" "foo_dev_pte_instance" {
-  name         = "foo-dev-pte${count.index}"
-  machine_type = var.pte_machine_type
-  count        = 2
+resource "google_compute_instance" "app_instance" {
+  name          = "${var.env_name}-${var.name}-${var.app_name}${count.index}"
+  machine_type  = var.app_machine_type
+  count         = var.app_count
   boot_disk {
     initialize_params {
-      image = var.image
+      image     = var.image
     }
   }
   network_interface {
-    subnetwork = var.pte_subnetwork
+    subnetwork  = "${var.app_name}"
   }
-  depends_on    = [google_compute_subnetwork.pte_subnetwork]
+  depends_on    = [google_compute_subnetwork.app_subnetwork]
 }
 
-resource "google_compute_instance" "foo_dev_dbptr_instance" {
-  name         = "foo-dev-dbptr${count.index}"
-  machine_type = var.dbptr_machine_type
-  count        = 2
+resource "google_compute_instance" "db_instance" {
+  name         = "${var.env_name}-${var.name}-${var.db_name}${count.index}"
+  machine_type = var.db_machine_type
+  count        = var.db_count
   boot_disk {
     initialize_params {
       image = var.image
     }
   }
   network_interface {
-    subnetwork = var.dbptr_subnetwork
+    subnetwork = "${var.db_name}"
   }
-  depends_on    = [google_compute_subnetwork.dbptr_subnetwork]
+  depends_on    = [google_compute_subnetwork.db_subnetwork]
+}
+
+resource "google_compute_instance" "redis_instance" {
+  name         = "${var.env_name}-${var.name}-${var.redis_name}${count.index}"
+  machine_type = var.redis_machine_type
+  count        = var.redis_count
+  boot_disk {
+    initialize_params {
+      image = var.image
+    }
+  }
+  network_interface {
+    subnetwork = "${var.redis_name}"
+  }
+  depends_on    = [google_compute_subnetwork.redis_subnetwork]
 }
