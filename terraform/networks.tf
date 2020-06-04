@@ -1,4 +1,4 @@
 resource "google_compute_network" "network" {
-  name                    = "${var.env_name}-${var.name}"
+  name                    = "network"
   auto_create_subnetworks = false
 }

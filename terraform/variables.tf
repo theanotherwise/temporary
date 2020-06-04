@@ -18,6 +18,10 @@ variable "image" {
     type = string
 }
 
+variable "ssh_keys_pub" {
+    type = string
+}
+
 variable "web_name" {
     type = string
 }
@@ -26,7 +30,11 @@ variable "web_count" {
     type = number
 }
 
-variable "web_ip_cidr_range" {
+variable "web_name_internal" {
+    type = string
+}
+
+variable "web_cidr_internal" {
     type = string
 }
 
@@ -39,14 +47,18 @@ variable "app_name" {
 }
 
 variable "app_count" {
-    type = number
-}
-
-variable "app_ip_cidr_range" {
     type = string
 }
 
 variable "app_machine_type" {
+    type = string
+}
+
+variable "app_name_internal" {
+    type = string
+}
+
+variable "app_cidr_internal" {
     type = string
 }
 
@@ -55,10 +67,6 @@ variable "db_name" {
 }
 
 variable "db_count" {
-    type = number
-}
-
-variable "db_ip_cidr_range" {
     type = string
 }
 
@@ -66,18 +74,26 @@ variable "db_machine_type" {
     type = string
 }
 
-variable "redis_name" {
+variable "db_name_internal" {
     type = string
 }
 
-variable "redis_count" {
-    type = number
-}
-
-variable "redis_ip_cidr_range" {
+variable "db_cidr_internal" {
     type = string
 }
 
-variable "redis_machine_type" {
+variable "bastion_name" {
+    type = string
+}
+
+variable "bastion_machine_type" {
+    type = string
+}
+
+variable "bastion_name_internal" {
+    type = string
+}
+
+variable "bastion_cidr_internal" {
     type = string
 }

@@ -1,31 +1,31 @@
-resource "google_compute_subnetwork" "web_subnetwork" {
-  name          = "${var.web_name}"
-  ip_cidr_range = var.web_ip_cidr_range
+resource "google_compute_subnetwork" "web-internal" {
+  name          = var.web_name_internal
+  ip_cidr_range = var.web_cidr_internal
   region        = var.region
-  network       = "${var.env_name}-${var.name}"
+  network       = google_compute_network.network.name
   depends_on    = [google_compute_network.network]
 }
 
-resource "google_compute_subnetwork" "app_subnetwork" {
-  name          = "${var.app_name}"
-  ip_cidr_range = var.app_ip_cidr_range
+resource "google_compute_subnetwork" "app-internal" {
+  name          = var.app_name_internal
+  ip_cidr_range = var.app_cidr_internal
   region        = var.region
-  network       = "${var.env_name}-${var.name}"
+  network       = google_compute_network.network.name
   depends_on    = [google_compute_network.network]
 }
 
-resource "google_compute_subnetwork" "db_subnetwork" {
-  name          = "${var.db_name}"
-  ip_cidr_range = var.db_ip_cidr_range
+resource "google_compute_subnetwork" "db-internal" {
+  name          = var.db_name_internal
+  ip_cidr_range = var.db_cidr_internal
   region        = var.region
-  network       = "${var.env_name}-${var.name}"
+  network       = google_compute_network.network.name
   depends_on    = [google_compute_network.network]
 }
 
-resource "google_compute_subnetwork" "redis_subnetwork" {
-  name          = "${var.redis_name}"
-  ip_cidr_range = var.redis_ip_cidr_range
+resource "google_compute_subnetwork" "bastion-internal" {
+  name          = var.bastion_name_internal
+  ip_cidr_range = var.bastion_cidr_internal
   region        = var.region
-  network       = "${var.env_name}-${var.name}"
+  network       = google_compute_network.network.name
   depends_on    = [google_compute_network.network]
 }
