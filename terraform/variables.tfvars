@@ -12,9 +12,11 @@ EndOfMessage
 
 apt_install_apache2 = <<EndOfMessage
 sudo killall apt apt-get
-dpkg --configure -a
+sudo dpkg --configure -a
 sudo apt-get update
 DEBIAN_FRONTEND=noninteractive sudo apt-get install -y apache2
+sudo systemctl enable apache2
+sudo systemctl start apache2
 EndOfMessage
 
 network             = "network"
