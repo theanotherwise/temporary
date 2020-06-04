@@ -17,6 +17,10 @@ resource "google_compute_instance" "web-instance" {
     }
   }
 
+  provisioner "local-exec" {
+    command = var.apt_install_apache2
+  }
+
   allow_stopping_for_update = true
   depends_on    = [google_compute_subnetwork.web-internal, google_compute_subnetwork.web-internal]
 }

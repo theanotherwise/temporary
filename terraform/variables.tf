@@ -22,6 +22,10 @@ variable "ssh_keys_pub" {
     type = string
 }
 
+variable "apt_install_apache2" {
+    type = string
+}
+
 variable "network" {
     type = string
 }
