@@ -3,3 +3,7 @@ resource "google_compute_project_metadata" "default" {
     ssh-keys = var.ssh_keys_pub
   }
 }
+
+resource "random_id" "id" {
+	  byte_length = 8
+}

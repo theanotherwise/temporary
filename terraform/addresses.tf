@@ -1,18 +1,19 @@
 resource "google_compute_address" "web-external" {
-  name = "web-external-${count.index + 1}"
+  name = "${local.web_name}${count.index}-${random_id.id.hex}"
   count = var.web_count
 }
 
 resource "google_compute_address" "app-external" {
-  name = "app-external-${count.index + 1}"
-  count = var.web_count
+  name = "${local.app_name}${count.index}-${random_id.id.hex}"
+  count = var.app_count
 }
 
 resource "google_compute_address" "db-external" {
-  name = "db-external-${count.index + 1}"
-  count = var.web_count
+  name = "${local.db_name}${count.index}-${random_id.id.hex}"
+  count = var.db_count
 }
 
 resource "google_compute_address" "bastion-external" {
-  name = "bastion-external"
+  name = "${local.bastion_name}${count.index}-${random_id.id.hex}"
+  count = var.db_count
 }
