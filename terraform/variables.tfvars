@@ -22,7 +22,7 @@ EndOfMessage
 network             = "network"
 
 web_name            = "web"
-web_count           = 2
+web_count           = 1
 web_machine_type    = "n1-standard-1"
 web_network_cidr    = "10.0.10.0/24"
 
